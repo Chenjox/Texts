@@ -36,14 +36,6 @@ public class T_SimpleTable implements TI_Table<String>, TI_StringBoxable {
         Assertions.assertEquals( t.getCell( 0,0 ), a.getCell( 0,0 ) );
     }
 
-    @Test
-    @DisplayName( "toBoxString Test" )
-    public void test_toBoxString(){
-        t.addRow( "Help", "I need", "Help" );
-        Assertions.assertEquals( "| Row 1 | Row 2  | Row 3 |\n| Help  | I need | Help  |",t.toBoxString() );
-        //System.out.println(t.getStringBox());
-    }
-
     @Override
     public Table<String> getTestTable() {
         SimpleTable<String> r = SimpleTable.<String>getTableBuilder().setColumns( 3 ).build();

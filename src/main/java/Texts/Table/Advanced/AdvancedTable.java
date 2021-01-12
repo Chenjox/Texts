@@ -1,5 +1,6 @@
 package Texts.Table.Advanced;
 
+import Texts.Spec;
 import Texts.StringBoxable;
 import Texts.Table.ComputableTable;
 import Texts.Table.FunctionalTable;
@@ -21,15 +22,13 @@ import java.util.stream.Collectors;
  * @see StringBoxable
  * @param <T> the content type of the table
  */
-public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, FunctionalTable<T>, MappableTable<T,String>, StringBoxable {
+public class AdvancedTable<T> implements FunctionalTable<T>, MappableTable<T,String>, StringBoxable {
 
     private final Function<T,String> standardMapper;
-    private final LinkedList<AdvRow<T>> rows;
+    private final LinkedList<AdvRow<T>> rows; //here are the cells
     private final LinkedList<AdvFuncRow<T>> funcRows;
     private final LinkedList<AdvFuncColumn<T>> funcColumns;
     private final int columns;
-
-    //TODO Das mit den functional Rows...
 
     private AdvancedTable(Function<T, String> standardMapper, LinkedList<AdvRow<T>> rows, LinkedList<AdvFuncRow<T>> funcRows, LinkedList<AdvFuncColumn<T>> funcColumns) {
         this.columns=0;
@@ -39,6 +38,12 @@ public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, Functiona
         this.funcColumns = funcColumns;
     }
 
+    /**
+     * This Sets the content of the cell at the specified position. If you want to get the content of functional rows, use
+     * @param Column index of the column
+     * @param Row index of the row
+     * @param content the new content
+     */
     @Override
     public void setCell(int Column, int Row, T content) {
         rows.get( Row ).setCell( Column,content );
@@ -157,9 +162,20 @@ public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, Functiona
 
     @Override
     public List<T> getComputedFunctionalColumn(int index) {
-        return null;
+        LinkedList<T> t = new LinkedList<>();
+        for (int i = 0; i < getRows(); i++) {
+            t.add( getComputedFunctionalColumnEntry( index, i ) );
+        }
+        return t;
     }
 
+    @Override
+    public T getComputedFunctionalColumnEntry(int column, int row){
+        BinaryOperator<T> operator = funcColumns.get( column ).getOperator( row );
+        int startColumn = funcColumns.get( column ).getStartColumn();
+        int endColumn = funcColumns.get( column ).getEndColumn();
+        return computeOnRow(operator, row ,startColumn, endColumn);
+    }
     @Override
     public List<BinaryOperator<T>> getFunctionalRow(int index) {
         return funcRows.get(index).getOperators();
@@ -167,8 +183,21 @@ public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, Functiona
 
     @Override
     public List<T> getComputedFunctionalRow(int index) {
-        return null;
+        LinkedList<T> t = new LinkedList<>();
+        for (int i = 0; i < getColumns(); i++) {
+            t.add( getComputedFunctionalRowEntry( i, index ) );
+        }
+        return t;
     }
+
+    @Override
+    public T getComputedFunctionalRowEntry(int column, int row){
+        BinaryOperator<T> operator = funcRows.get( row ).getOperator( column );
+        int startRow = funcRows.get( row ).getStartRow();
+        int endRow = funcRows.get( row ).getEndRow();
+        return computeOnColumn( operator, column, startRow, endRow );
+    }
+
 
     @Override
     public Function<T, String> getMapper() {
@@ -183,6 +212,14 @@ public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, Functiona
         return getRow( row ).stream().map( mapper ).collect( Collectors.toList());
     }
 
+    /**
+     * a string array for easy implementation of {@link StringBoxable#getLine(int)}
+     */
+    private String[] cache;
+    /**
+     * whether the cache must be updated
+     */
+    private boolean cacheIsDirty = true;
     //TODO ohne ausgabe bringt das nicht viel oder?
 
     @Override
@@ -206,4 +243,20 @@ public class AdvancedTable<T> implements Table<T>, ComputableTable<T>, Functiona
     }
 
     //TODO Builder und Spec
+
+    public static class Builder<T> implements Texts.Builder<AdvancedTable<T>>{
+
+        @Override
+        public AdvancedTable<T> build(){
+            return null;
+        }
+    }
+
+    public static class AdvTableSpec<T> implements Spec<T>{
+
+        @Override
+        public T create() {
+            return null;
+        }
+    }
 }

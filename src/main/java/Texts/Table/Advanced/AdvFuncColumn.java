@@ -50,10 +50,10 @@ public class AdvFuncColumn<T> extends AdvFunc<T> {
         rows++;
         appendOperator( operator );
     }
-    public int getStartRow() {
+    public int getStartColumn() {
         return startColumn;
     }
-    public int getEndRow(){
+    public int getEndColumn(){
         return endColumn;
     }
     private void appendOperator(BinaryOperator<T> t){

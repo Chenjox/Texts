@@ -18,8 +18,20 @@ public interface FunctionalTable<T> extends ComputableTable<T> {
      */
     List<BinaryOperator<T>> getFunctionalColumn(int index);
 
+    /**
+     * Returns the {@link List} of computed {@link T} for the specified functional column.
+     * @param index index of the functional column. This is a <span style="color: #FF6347">different</span> index from normal columns.
+     * @return the {@link List} of {@link T}s
+     */
     List<T> getComputedFunctionalColumn(int index);
 
+    /**
+     * Returns the {@link List} of computed {@link T} for the specified functional column.
+     * @param column index of the functional column. This is a <span style="color: #FF6347">different</span> index from normal columns.
+     * @param row index of the row inside the column. This is the same index as the number of rows.
+     * @return the {@link List} of {@link T}s
+     */
+    T getComputedFunctionalColumnEntry(int column, int row);
     /**
      * Returns the {@link List} of {@link BinaryOperator} for the specified functional row.
      * @param index index of the functional row. This is a <span style="color: #FF6347">different</span> index from normal rows.
@@ -28,4 +40,6 @@ public interface FunctionalTable<T> extends ComputableTable<T> {
     List<BinaryOperator<T>> getFunctionalRow(int index);
 
     List<T> getComputedFunctionalRow(int index);
+
+    T getComputedFunctionalRowEntry(int column, int row);
 }
