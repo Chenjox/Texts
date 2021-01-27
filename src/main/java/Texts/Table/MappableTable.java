@@ -11,6 +11,15 @@ import java.util.function.Function;
  */
 public interface MappableTable<T,M> extends Table<T>{
 
+    //TODO Docs checken. Überprüfen ob es zu Pauchus Anmerkungen passt
+    //Du sollst ja im Interface nicht jedes Detail der Implementierung erklären
+    //deswegen ist es ja nur ein interface
+    //Was das interface macht, ist, sicherstellen, dass eine funktion vorhanden ist
+    //um somit kompatibilität mit anderen funktionen zu garantieren
+    //funktion im sinne von eigenschaft
+    //nicht im programmiersinn
+    //wobei das auch nicht ganz falsch wäre
+
     /**
      * @return returns the specified mapping function
      */

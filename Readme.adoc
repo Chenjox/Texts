@@ -1,0 +1,65 @@
+= Util.Texts
+
+This Library is made mostly for personal use.It currently contains the following texts helpers:
+
+Tables:: The _Table_ package contains helper methods for creating tables and doing computations on them:
+
+https://github.com/Chenjox/Texts/wiki/Table-of-Contents[See the Wiki]
+
+'''
+
+== Common Interfaces
+
+These interfaces serve the purpose to unify creation patterns and operation patterns along the library.
+There are currently two **Interfaces**:
+
+`Builder<T>`:: Commonly a Builder class will be implemented in a parent class, where this builder can create the desired object.
++
+[source,java]
+----
+    public class Parent{
+      private final attribute;
+      //methods etc.
+      public static Builder getBuilder(){
+        return new Builder();
+      }
+      public static class Builder implements Builder<Parent>{
+        public Parent build(){
+          return new Parent();
+        }
+      }
+    }
+----
+
+
+`Spec<T>`:: The Spec (short for specification) is another way to create an object.
++
+[source,java]
+----
+    public class Parent{
+      private final attribute;
+      //methods etc.
+      public static Parent createParent(Consumer<Spec> spec){
+        Spec t = new Spec();
+        spec.apply(t);
+        return t.create;
+      }
+      public static class Spec implements Spec<Parent>{
+        public Parent create(){
+          return new Parent();
+        }
+      }
+    }
+----
+
+'''
+
+== JUnit Tests.
+
+All classes and Interface must have a Junit Test to test them. Most of the time, exceptions are tested and so called equivalences.
+
+you can find every Unit test in [`Test`](src/test/java).
+
+* Every Interface Test starts with `TI_-interfacename-`.
+
+* Every Class Test starts with `T_-classname-`.

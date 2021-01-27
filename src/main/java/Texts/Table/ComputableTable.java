@@ -13,6 +13,15 @@ import java.util.function.BinaryOperator;
  */
 public interface ComputableTable<T> extends Table<T>{
 
+    //TODO Docs checken. Überprüfen ob es zu Pauchus Anmerkungen passt
+    //Du sollst ja im Interface nicht jedes Detail der Implementierung erklären
+    //deswegen ist es ja nur ein interface
+    //Was das interface macht, ist, sicherstellen, dass eine funktion vorhanden ist
+    //um somit kompatibilität mit anderen funktionen zu garantieren
+    //funktion im sinne von eigenschaft
+    //nicht im programmiersinn
+    //wobei das auch nicht ganz falsch wäre
+
     /**
      * computes the given {@link BinaryOperator} B on the given column in the {@link Table} C with content {@link T} in the following fashion:
      * <pre>
@@ -264,7 +273,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param operator the given {@link BinaryOperator}
      */
     default void addComputedRow(BinaryOperator<T> operator){
-        this.addRow( computeOnRows( operator ) );
+        this.addRow( computeOnColumns( operator ) );
     };
 
     /**
@@ -273,7 +282,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param startRow index of the initial row
      */
     default void addComputedRow(BinaryOperator<T> operator, int startRow){
-        this.addRow( computeOnRows( operator, startRow ) );
+        this.addRow( computeOnColumns( operator, startRow ) );
     };
 
     /**
@@ -283,7 +292,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param endRow index of the terminal row
      */
     default void addComputedRow(BinaryOperator<T> operator, int startRow, int endRow){
-        this.addRow( computeOnRows( operator, startRow, endRow ) );
+        this.addRow( computeOnColumns( operator, startRow, endRow ) );
     };
 
     /**
@@ -294,7 +303,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param insertRow index of the row, after which this row is inserted
      */
     default void addComputedRow(BinaryOperator<T> operator, int startRow, int endRow, int insertRow){
-        this.addRow( insertRow, computeOnRows( operator, startRow, endRow ) );
+        this.addRow( insertRow, computeOnColumns( operator, startRow, endRow ) );
     };
 
     /**
@@ -303,7 +312,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param operators the given {@link List} of {@link BinaryOperator}
      */
     default void addComputedRow(List<BinaryOperator<T>> operators){
-        this.addRow( computeOnRows( operators ) );
+        this.addRow( computeOnColumns( operators ) );
     };
 
     /**
@@ -313,7 +322,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param startRow index of the initial row
      */
     default void addComputedRow(List<BinaryOperator<T>> operators, int startRow){
-        this.addRow( computeOnRows( operators, startRow ) );
+        this.addRow( computeOnColumns( operators, startRow ) );
     };
 
     /**
@@ -324,7 +333,7 @@ public interface ComputableTable<T> extends Table<T>{
      * @param endRow index of the terminal row
      */
     default void addComputedRow(List<BinaryOperator<T>> operators, int startRow, int endRow){
-        this.addRow( computeOnRows( operators, startRow, endRow ) );
+        this.addRow( computeOnColumns( operators, startRow, endRow ) );
     };
 
     /**
@@ -336,6 +345,6 @@ public interface ComputableTable<T> extends Table<T>{
      * @param insertRow index of the row, after which this row is inserted
      */
     default void addComputedRow(List<BinaryOperator<T>> operators, int startRow, int endRow, int insertRow){
-        this.addRow( insertRow, computeOnRows( operators, startRow, endRow ) );
+        this.addRow( insertRow, computeOnColumns( operators, startRow, endRow ) );
     };
 }

@@ -24,7 +24,7 @@ public interface TI_StringBoxable {
     default void T_getWidth(){
         //TODO
     }
-    @ParameterizedTest(name = "3: p{index} -> {0}")
+    @ParameterizedTest(name = "3: getLine( {0} )")
     @ValueSource(ints = {-3,-2,-1,0,1,2,3,4,5,6,7,8,100,200,400})
     @Order(3)
     default void T_getLines(int Line){

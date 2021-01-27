@@ -1,7 +1,5 @@
 package Texts.Table.Advanced;
 
-import Texts.StringBoxable;
-
 import java.util.LinkedList;
 import java.util.List;
 

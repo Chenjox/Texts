@@ -20,6 +20,12 @@ import java.util.function.Function;
  */
 public class SimpleTable<T> implements Table<T>, StringBoxable {
 
+    //TODO Docs überarbeiten!
+    //Du solltest im der Klasse dokumentieren, wie du das interface implementierst
+    //Das Interface hat in der Doku, wie es funktionieren sollte
+    //Das kann sich unterscheiden
+    //Das kann gleich sein
+    //Doppelt hält besser
     /**
      * The list containing the cells of the table
      */

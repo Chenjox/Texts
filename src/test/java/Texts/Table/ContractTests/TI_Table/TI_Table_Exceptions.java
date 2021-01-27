@@ -2,6 +2,8 @@ package Texts.Table.ContractTests.TI_Table;
 
 import Texts.Table.Table;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 
@@ -73,16 +75,23 @@ public interface TI_Table_Exceptions<T> {
             getTestTable().getCell( 0,-1 );
         },"FAILED INDEX TOO LOW" );
     }
+
+    @ParameterizedTest(name = "3: getRow( {0} )")
+    @ValueSource(ints = {-4,-3,-2,-1,2,3,4,5,6,7,8,100,200,400})
+    @Order(3)
+    default void T_getRowIndex_Param(int row){
+        Assertions.assertThrows( IndexOutOfBoundsException.class,()->{
+            getTestTable().getRow( row );
+        },"FAILED INDEX OUT OF BOUNDS" );
+    }
+
     @Test
     @Order(3)
-    @DisplayName( "3: getRow Index" )
+    @DisplayName( "3: getRows() Exception" )
     default void T_getRowIndex(){
         Assertions.assertThrows( IndexOutOfBoundsException.class,()->{
             getTestTable().getRow( getTestTable().getRows() );
         },"FAILED INDEX TOO HIGH" );
-        Assertions.assertThrows( IndexOutOfBoundsException.class,()->{
-            getTestTable().getRow( -1 );
-        },"FAILED INDEX TOO LOW" );
     }
     @Test
     @Order(4)

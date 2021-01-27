@@ -46,9 +46,9 @@ public class AdvFuncColumn<T> extends AdvFunc<T> {
             return operators;
         }
     }
-    public void addRow(){
+    public void addRow(BinaryOperator<T> t){
         rows++;
-        appendOperator( operator );
+        appendOperator( t );
     }
     public int getStartColumn() {
         return startColumn;
@@ -114,7 +114,7 @@ public class AdvFuncColumn<T> extends AdvFunc<T> {
             return new AdvFuncColumn<T>( this );
         }
     }
-    public static <T> AdvFuncColumn<T> createColumn(Consumer<ColumnSpec<T>> spec){
+    public static <T> AdvFuncColumn<T> createFuncColumn(Consumer<ColumnSpec<T>> spec){
         ColumnSpec<T> s = new ColumnSpec<>();
         spec.accept( s );
         return s.create();

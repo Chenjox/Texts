@@ -6,6 +6,7 @@ import Texts.Spec;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BinaryOperator;
+import java.util.function.Consumer;
 
 /**
  * A Class defining how a row containing operators should be built;
@@ -13,6 +14,10 @@ import java.util.function.BinaryOperator;
  */
 public class AdvFuncRow<T> extends AdvFunc<T> {
 
+    /**
+     * An arbitrary negative number to encode the usage of all rows in a table.
+     */
+    public static int ENDROW_FOR_ALL_ROWS = -190;
     //TODO Docs!!
     private int columns;
 
@@ -96,6 +101,11 @@ public class AdvFuncRow<T> extends AdvFunc<T> {
         public AdvFuncRow<T> build() {
             return new AdvFuncRow<T>(this);
         }
+    }
+    public static <T> AdvFuncRow<T> createFuncRow(Consumer<RowSpec<T>> spec){
+        RowSpec<T> RowSpec = new RowSpec<>();
+        spec.accept( RowSpec );
+        return RowSpec.create();
     }
     public static class RowSpec<T> implements Spec<AdvFuncRow<T>>{
         private RowBuilder<T> builder;

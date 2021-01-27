@@ -4,6 +4,16 @@ package Texts;
  * A contract specifying how objects can be put into a rectangular box.
  */
 public interface StringBoxable {
+
+    //TODO Docs checken. Überprüfen ob es zu Pauchus Anmerkungen passt
+    //Du sollst ja im Interface nicht jedes Detail der Implementierung erklären
+    //deswegen ist es ja nur ein interface
+    //Was das interface macht, ist, sicherstellen, dass eine funktion vorhanden ist
+    //um somit kompatibilität mit anderen funktionen zu garantieren
+    //funktion im sinne von eigenschaft
+    //nicht im programmiersinn
+    //wobei das auch nicht ganz falsch wäre
+
     /**
      * Gets the Width (the amount of chars) of the Box
      * <pre>
